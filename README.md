@@ -1,6 +1,6 @@
 # Core contributor skills
 
-Agentic skills aimed at helping WordPress Core contributors.
+Agentic skills aimed at helping WordPress Core contributors. All skills are currently works in progress and there is currently no commitment to backwards or forwards compatibility for any of them. 
 
 ## What's here
 
