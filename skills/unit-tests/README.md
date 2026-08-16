@@ -4,25 +4,38 @@ Use the `unit-tests` skill to audit an existing test suite for value, speed, and
 
 ## Audit without changing files
 
-Invoke the skill explicitly or ask for a test-quality audit:
+In Claude Code, invoke the standalone skill:
 
 ```text
-Use $unit-tests to audit all tests in this repository.
-Use $unit-tests to audit tests/unit/UserServiceTest.php.
-Review the tests in src/components/__tests__ for quality and gaps.
+/unit-tests
 ```
 
-The skill reports findings without editing files by default. It reads each test with its production code, runs the suite for a baseline, and returns a structured report.
+This audits the current repository and reports findings without editing files. Claude reads each test with its production code, runs the suite for a baseline, and returns a structured report.
+
+For a narrower audit, ask Claude for the path you want reviewed. Claude can activate the skill automatically:
+
+```text
+Audit the tests in tests/unit/UserServiceTest.php.
+Review src/components/__tests__ for test quality and gaps.
+```
 
 ## Apply improvements
 
-Ask explicitly when you want changes:
+Run the audit first. After reviewing its findings, ask Claude to apply the relevant recommendations:
 
 ```text
-Use $unit-tests to audit tests/unit and apply the recommended improvements.
+Apply the recommended improvements in tests/unit.
 ```
 
 When authorized, the skill removes low-value tests with reasons, rewrites brittle checks, and adds tests only for genuine regression gaps. It runs the relevant suite before and after changes.
+
+## Use with Codex
+
+Invoke the skill directly:
+
+```text
+Use $unit-tests to audit all tests in this repository.
+```
 
 ## Guardrails
 
