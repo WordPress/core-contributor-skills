@@ -1,0 +1,4 @@
+interface:
+  display_name: "Unit tests"
+  short_description: "Audit tests for quality, speed, and value"
+  default_prompt: "Use $unit-tests to audit this test suite and recommend focused improvements."
