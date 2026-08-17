@@ -60,7 +60,7 @@ Use changeset information to understand relationships:
 - What the original change did (for reverts or follow-ups)
 - Related tickets that may need `See #...` references
 - Context that should be mentioned in the commit message description
-- Add a "Follow-up to [nnnnn]" line when this commit directly continues, reverts, or fixes a previous changeset.
+- Add a "Follow-up to rNNNNN" line when this commit directly continues, reverts, or fixes a previous changeset.
 
 4. **Build the props list:**
 
@@ -103,9 +103,9 @@ Longer description with more details, such as a `new_hook` being introduced with
 
 More paragraphs can be added as needed.
 
-Developed in {GitHub PR URL}.
+Developed in: {GitHub PR URL}
 
-Follow-up to [12345], [67890].
+Follow-up to r12345, r67890.
 
 Props person, another.
 Fixes #12345. See #67890.
@@ -135,16 +135,15 @@ Fixes #12345. See #67890.
 
 ## Developed In Line
 
-- Add `Developed in {PR URL}.` at the end of the description
-- Must end with a period
+- Add `Developed in: {PR URL}` at the end of the description
 - Must be preceded by a blank line
 - Comes BEFORE Follow-up to line (if present)
 - Must be followed by a blank line
 
 ## Follow-up To Line (Optional)
 
-- Add `Follow-up to [12345], [67890].` when this commit directly continues, reverts, or fixes a previous changeset
-- Format changeset numbers as `[123]` (square brackets) — these reference changesets, not tickets
+- Add `Follow-up to r12345, r67890.` when this commit directly continues, reverts, or fixes a previous changeset
+- Format changeset numbers with an `r` prefix, even when a source refers to them as `[12345]`
 - Comes AFTER Developed in line
 - Must be preceded by a blank line
 - Must be followed by a blank line before Props
