@@ -4,6 +4,7 @@ Agentic skills aimed at helping WordPress Core contributors. All skills are curr
 
 ## What's here
 
+- [commit-message](./skills/commit-message/)—Generate a WordPress Core Subversion commit message from a GitHub pull request and its linked Trac ticket, formatted according to the [commit messages handbook](https://make.wordpress.org/core/handbook/best-practices/commit-messages/).
 - [unit-tests](./skills/unit-tests/)—Audit existing test suites for meaningful coverage, brittle checks, duplicated assertions, slow feedback loops, and genuine regression gaps.
 
 Everything in this repository is licensed under the [GNU General Public License v2](./LICENSE) or later, matching WordPress itself.
