@@ -1,0 +1,7 @@
+interface:
+  display_name: "Commit message"
+  short_description: "Generate WordPress Core commit messages"
+  default_prompt: "Use $commit-message to generate a WordPress Core commit message for this pull request."
+
+policy:
+  allow_implicit_invocation: false
