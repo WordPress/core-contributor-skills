@@ -1,13 +1,10 @@
 ---
 name: commit-message
 description: Generate a WordPress Core Subversion commit message from a GitHub pull request and its linked Trac ticket.
-disable-model-invocation: true
-user-invocable: true
 allowed-tools:
   - Bash(gh pr view:*)
   - Bash(curl -sI -o /dev/null -w '%{redirect_url}\n' https://profiles.wordpress.org/*)
   - mcp__wordpress-trac__*
-argument-hint: "[pr-number]"
 ---
 
 # WordPress Commit Message Generator
