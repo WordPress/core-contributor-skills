@@ -5,6 +5,7 @@ disable-model-invocation: true
 user-invocable: true
 allowed-tools:
   - Bash(gh pr view:*)
+  - Bash(curl -sI https://profiles.wordpress.org/*)
   - mcp__wordpress-trac__*
 argument-hint: "[pr-number]"
 ---
@@ -17,7 +18,7 @@ Follow the "WordPress Core Commit Message Format" section below when generating 
 
 ## Context
 
-- If a PR number is provided as `$1`, use that. Otherwise omit it from `gh` commands to use the current branch's PR.
+- If a PR number is provided as `$0`, use that. Otherwise omit it from `gh` commands to use the current branch's PR.
 
 ## Instructions
 
@@ -45,7 +46,7 @@ Follow the "WordPress Core Commit Message Format" section below when generating 
 Always use the WordPress Trac MCP tools to fetch ticket details, including enough comments to review the full discussion when possible.
 
 - Fetch the main ticket.
-- Use `component` for the commit message prefix, but NOT if it's "General" (omit the prefix in that case)
+- Use the ticket's `component` field verbatim as the commit message prefix, but NOT if it's "General" (omit the prefix in that case)
 - Use the ticket summary and description to help form the commit message
 - Look for related ticket references (#12345) in the description
 - Fetch related tickets to understand the relationship
@@ -72,6 +73,12 @@ Use changeset information to understand relationships:
      ```
    - Extract the props list from the line starting with `Props `
    - If no props comment is found (new PRs or bot failure), build the props list from the PR author, reviewers, and Trac ticket participants instead.
+   - GitHub usernames are NOT WordPress.org usernames. Resolve each GitHub username (PR author, reviewers) to a WordPress.org username:
+     ```sh
+     curl -sI https://profiles.wordpress.org/github:GITHUB_USERNAME
+     ```
+     - A redirect to `https://profiles.wordpress.org/USERNAME/` gives the WordPress.org username.
+     - A redirect to `https://profiles.wordpress.org/github/` means no linked WordPress.org account was found. Do not guess: check whether the person appears in the Trac discussion under a WordPress.org name; otherwise flag them as unresolved (see Output).
    - Review the Trac ticket discussion. Add the profile name of any participant who contributed. Skip trivial contributions or obvious spam, but include folks when in doubt.
    - Merge all sources, deduplicating usernames. The PR bot already uses WordPress.org usernames. For Trac participants, use their WordPress.org profile name as shown on Trac.
 
@@ -82,6 +89,8 @@ Use changeset information to understand relationships:
 ## Output
 
 Output ONLY the commit message text, properly formatted and ready to copy. Do not include any other commentary or explanation. Use a markdown code block so it's easy to copy.
+
+The one exception: if any contributors could not be resolved to a WordPress.org username, list them in a short note after the code block so the committer can resolve them manually. Never include unverified usernames in the Props line.
 
 # WordPress Core Commit Message Format
 
@@ -108,8 +117,7 @@ Fixes #12345. See #67890.
 
 - Must be one line, no line breaks
 - Aim for ~50 characters, max 70
-- Prefix with component/focus of the change (from Trac ticket component, unless it's "General")
-- The list of valid components is at the end of this document
+- Prefix with the ticket's component, used verbatim (unless it's "General", in which case omit the prefix)
 - Use imperative mood: "Add feature" not "Adds feature" or "Added feature"
 - Must end with a period
 
@@ -159,52 +167,3 @@ Fixes #12345. See #67890.
 - `Fixes #12345.` - closes the ticket
 - `See #12345.` - references without closing
 - Multiple tickets: `Fixes #123, #456. See #789.`
-
-## Valid Components
-
-The following components are the **only** valid component prefixes for WordPress core commit messages.
-
-- Administration
-- AI
-- Bootstrap/Load
-- Build/Test Tools
-- Bundled Theme
-- Cache API
-- Comments
-- Cron API
-- Customize
-- Database
-- Date/Time
-- Editor
-- Export
-- External Libraries
-- Feeds
-- Filesystem API
-- Formatting
-- General
-- Help/About
-- HTML API
-- HTTP API
-- I18N
-- Import
-- Interactivity API
-- Mail
-- Media
-- Networks and Sites
-- Options, Meta APIs
-- Permalinks
-- Plugins
-- Posts, Post Types
-- Privacy
-- Query
-- REST API
-- Script Loader
-- Security
-- Site Health
-- Sitemaps
-- Taxonomy
-- Themes
-- Toolbar
-- Upgrade/Install
-- Users
-- XML-RPC
