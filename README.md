@@ -6,7 +6,7 @@ Agentic skills aimed at helping WordPress Core contributors. All skills are curr
 
 - [unit-tests](./skills/unit-tests/)—Audit existing test suites for meaningful coverage, brittle checks, duplicated assertions, slow feedback loops, and genuine regression gaps.
 
-The unit-tests skill is licensed under GPL-2.0-only. See [its license](./skills/unit-tests/LICENSE).
+Everything in this repository is licensed under the [GNU General Public License v2](./LICENSE) or later, matching WordPress itself.
 
 ## Contributing
 
