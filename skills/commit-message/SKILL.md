@@ -66,7 +66,7 @@ Use changeset information to understand relationships:
 
    - Fetch the PR's props comment:
      ```sh
-     gh pr view [pr-number] --json comments --jq '.comments[] | select(.body | test("Use this line as a base for the props")) | .body'
+     gh pr view [pr-number] --json comments --jq '.comments[] | select(.author.login == "github-actions" and (.body | test("Core Committers: Use this line as a base for the props when committing in SVN:"))) | .body'
      ```
    - Extract the props list from the line starting with `Props `
    - If no props comment is found (new PRs or bot failure), build the props list from the PR author, reviewers, and Trac ticket participants instead.
