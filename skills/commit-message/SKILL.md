@@ -5,7 +5,7 @@ disable-model-invocation: true
 user-invocable: true
 allowed-tools:
   - Bash(gh pr view:*)
-  - Bash(curl -sI https://profiles.wordpress.org/*)
+  - Bash(curl -sI -o /dev/null -w '%{redirect_url}\n' https://profiles.wordpress.org/*)
   - mcp__wordpress-trac__*
 argument-hint: "[pr-number]"
 ---
@@ -75,10 +75,11 @@ Use changeset information to understand relationships:
    - If no props comment is found (new PRs or bot failure), build the props list from the PR author, reviewers, and Trac ticket participants instead.
    - GitHub usernames are NOT WordPress.org usernames. Resolve each GitHub username (PR author, reviewers) to a WordPress.org username:
      ```sh
-     curl -sI https://profiles.wordpress.org/github:GITHUB_USERNAME
+     curl -sI -o /dev/null -w '%{redirect_url}\n' https://profiles.wordpress.org/github:GITHUB_USERNAME
      ```
-     - A redirect to `https://profiles.wordpress.org/USERNAME/` gives the WordPress.org username.
-     - A redirect to `https://profiles.wordpress.org/github/` means no linked WordPress.org account was found. Do not guess: check whether the person appears in the Trac discussion under a WordPress.org name; otherwise flag them as unresolved (see Output).
+     The command prints a single redirect URL:
+     - `https://profiles.wordpress.org/USERNAME/` — the WordPress.org username is `USERNAME`.
+     - `https://profiles.wordpress.org/github/` — no linked WordPress.org account was found. Do not guess: check whether the person appears in the Trac discussion under a WordPress.org name; otherwise flag them as unresolved (see Output).
    - Review the Trac ticket discussion. Add the profile name of any participant who contributed. Skip trivial contributions or obvious spam, but include folks when in doubt.
    - Merge all sources, deduplicating usernames. The PR bot already uses WordPress.org usernames. For Trac participants, use their WordPress.org profile name as shown on Trac. A name containing spaces is a display name, not a username — use the slug from the contributor's `profiles.wordpress.org` profile URL instead.
 
