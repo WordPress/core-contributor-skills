@@ -80,7 +80,7 @@ Use changeset information to understand relationships:
      - A redirect to `https://profiles.wordpress.org/USERNAME/` gives the WordPress.org username.
      - A redirect to `https://profiles.wordpress.org/github/` means no linked WordPress.org account was found. Do not guess: check whether the person appears in the Trac discussion under a WordPress.org name; otherwise flag them as unresolved (see Output).
    - Review the Trac ticket discussion. Add the profile name of any participant who contributed. Skip trivial contributions or obvious spam, but include folks when in doubt.
-   - Merge all sources, deduplicating usernames. The PR bot already uses WordPress.org usernames. For Trac participants, use their WordPress.org profile name as shown on Trac.
+   - Merge all sources, deduplicating usernames. The PR bot already uses WordPress.org usernames. For Trac participants, use their WordPress.org profile name as shown on Trac. A name containing spaces is a display name, not a username — use the slug from the contributor's `profiles.wordpress.org` profile URL instead.
 
 5. **Generate the commit message:**
 
@@ -132,6 +132,7 @@ Fixes #12345. See #67890.
 - Do NOT manually wrap lines
 - Don't include time estimates or scheduling language
 - Code/hooks in backticks: `function_name()`, `hook_name`
+- `#` followed by a number auto-links to a Trac ticket, so reserve that form for Trac ticket references; write GitHub issues and PRs as full URLs
 - Each sentence should begin with a capital letter and end with a period
 
 ## Developed In Line
