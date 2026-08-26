@@ -5,7 +5,7 @@ disable-model-invocation: true
 user-invocable: true
 allowed-tools:
   - Bash(gh pr view:*)
-  - Bash(curl -sI -o /dev/null -w '%{redirect_url}\n' https://profiles.wordpress.org/*)
+  - Bash(curl -s -X POST https://profiles.wordpress.org/wp-json/wporg-github/v1/lookup/*)
   - mcp__wordpress-trac__*
 argument-hint: "[pr-number]"
 ---
@@ -73,13 +73,11 @@ Use changeset information to understand relationships:
      ```
    - Extract the props list from the line starting with `Props `
    - If no props comment is found (new PRs or bot failure), build the props list from the PR author, reviewers, and Trac ticket participants instead.
-   - GitHub usernames are NOT WordPress.org usernames. Resolve each GitHub username (PR author, reviewers) to a WordPress.org username:
+   - GitHub usernames are NOT WordPress.org usernames. Resolve GitHub usernames (PR author, reviewers) to WordPress.org usernames with the official lookup API, batching every username into one call:
      ```sh
-     curl -sI -o /dev/null -w '%{redirect_url}\n' https://profiles.wordpress.org/github:GITHUB_USERNAME
+     curl -s -X POST https://profiles.wordpress.org/wp-json/wporg-github/v1/lookup/ -H 'Content-Type: application/json' -d '{"github_user":["USERNAME1","USERNAME2"]}'
      ```
-     The command prints a single redirect URL:
-     - `https://profiles.wordpress.org/USERNAME/` — the WordPress.org username is `USERNAME`.
-     - `https://profiles.wordpress.org/github/` — no linked WordPress.org account was found. Do not guess: check whether the person appears in the Trac discussion under a WordPress.org name; otherwise flag them as unresolved (see Output).
+     The response is a JSON object keyed by GitHub username. Each value is either `{"slug":"...","profile":"..."}`, where `slug` is the WordPress.org username, or `false` when no linked WordPress.org account exists. Do not guess on `false`: check whether the person appears in the Trac discussion under a WordPress.org name; otherwise flag them as unresolved (see Output).
    - Review the Trac ticket discussion. Add the profile name of any participant who contributed. Skip trivial contributions or obvious spam, but include folks when in doubt.
    - Merge all sources, deduplicating usernames. The PR bot already uses WordPress.org usernames. For Trac participants, use their WordPress.org profile name as shown on Trac. A name containing spaces is a display name, not a username — use the slug from the contributor's `profiles.wordpress.org` profile URL instead.
 
