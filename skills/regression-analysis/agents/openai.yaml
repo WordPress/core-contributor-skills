@@ -1,0 +1,12 @@
+interface:
+  display_name: "Regression analysis"
+  short_description: "Assess WordPress Core regression risk"
+  default_prompt: "Use $regression-analysis to analyze the current WordPress Core change for regressions."
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "wordpress-trac"
+      description: "Read WordPress Core Trac evidence"
+      transport: "streamable_http"
+      url: "https://wordpress-trac-mcp-server-prod.a8c-aiops.workers.dev/mcp"
